@@ -11,9 +11,12 @@ import java.util.Collection;
 public class MeetingService {
 
 	Session session;
+	DatabaseConnector connector;
+
 
 	public MeetingService() {
-		session = DatabaseConnector.getInstance().getSession();
+		connector = DatabaseConnector.getInstance();
+		session = DatabaseConnector.instance.getSession();
 	}
 
 	public Collection<Meeting> getAll() {
@@ -22,4 +25,7 @@ public class MeetingService {
 		return query.list();
 	}
 
+	public Meeting findById(Long id) {
+		return connector.getSession().get(Meeting.class, id);
+	}
 }
